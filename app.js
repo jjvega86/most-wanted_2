@@ -25,8 +25,8 @@ const displayTableResults = (people) => {
 const clearTableResults = () => {
   var tbody = document.querySelector("#tableBody");
 
-  while(tbody.firstChild){
-    tbody.removeChild(tbody.firstChild)
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
   }
 };
 
@@ -42,14 +42,17 @@ const searchByName = (people) => {
       return false;
     }
   });
-
+  clearTableResults();
   displayTableResults(filteredPeople);
+  modal.style.display = "none";
 };
 
 // Modal Functions
+
 let modalBtn = document.querySelector("#modal-btn");
 let modal = document.querySelector(".modal");
 let closeBtn = document.querySelector(".close-btn");
+let submitBtn = document.querySelector("#onSubmit");
 
 modalBtn.onclick = () => {
   modal.style.display = "block";
@@ -62,6 +65,7 @@ closeBtn.onclick = () => {
 window.onclick = (e) => {
   if (e.target == modal) {
     modal.style.display = "none";
-    e.preventDefault();
   }
 };
+
+
