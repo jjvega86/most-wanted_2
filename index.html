@@ -3,19 +3,38 @@
   <head>
     <meta charset="utf-8" />
     <title>devCodeCamp &middot; Most Wanted</title>
+    <style>
+      .grid-header {grid-area: header;}
+      .grid-buttons {grid-area: header;}
+
+    </style>
   </head>
   <body>
+    <header>
+      <h1>WELCOME TO MOST WANTED</h1>
+      <button id="search">SEARCH</button>
+    </header>
+    <br />
     <button onclick="displayTableResults(data)">Display People</button>
+    <button>Reset Data</button>
+    <button>Display Gallery</button>
+    <br />
+    <br />
+    <hr>
+    <br />
     <table id="myTable">
       <thead>
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
+          <th>Gender</th>
+          <th>Height</th>
+          <th>Weight</th>
+          <th>Eye Color</th>
           <th>Occupation</th>
         </tr>
       </thead>
-      <tbody>
-      </tbody>
+      <tbody></tbody>
     </table>
     <script src="data.js"></script>
     <script src="app.js"></script>

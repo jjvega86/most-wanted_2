@@ -9,14 +9,19 @@ const displayTableResults = (people) => {
     table.innerHTML += `<tr>
       <td>${element.firstName}</td>
       <td>${element.lastName}</td>
+      <td>${element.gender}</td>
+      <td>${element.height}</td>
+      <td>${element.weight}</td>
+      <td>${element.eyeColor}</td>
       <td>${element.occupation}</td>
+      <td><button>Display Family</button></td>
+      <td><button>Display Descendants</button></td>
     </tr>
     
     `;
   });
 };
 
-// TODO: Get form input and return as an object or array from a function
 
 const searchByName = (people) => {
   let name = "Uma";
