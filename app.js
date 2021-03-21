@@ -1,9 +1,9 @@
 "use strict";
 
-// TODO: Display all search results on a table
+// Table Functions
 
 const displayTableResults = (people) => {
-  let table = document.getElementById("myTable");
+  let table = document.getElementById("tableBody");
 
   people.forEach((element) => {
     table.innerHTML += `<tr>
@@ -22,21 +22,28 @@ const displayTableResults = (people) => {
   });
 };
 
+const clearTableResults = () => {
+  var tbody = document.querySelector("#tableBody");
+
+  while(tbody.firstChild){
+    tbody.removeChild(tbody.firstChild)
+  }
+};
+
+// Search Functions
 const searchByName = (people) => {
-  let name = "Uma";
+  let firstName = document.querySelector("#fname").value;
+  let lastName = document.querySelector("#lname").value;
+
   let filteredPeople = people.filter((person) => {
-    if (person.firstName == name) {
+    if (person.firstName == firstName || person.lastName == lastName) {
       return true;
     } else {
       return false;
     }
   });
 
-  return filteredPeople[0];
-};
-
-const searchByTrait = (people) => {
-  //
+  displayTableResults(filteredPeople);
 };
 
 // Modal Functions
@@ -53,8 +60,8 @@ closeBtn.onclick = () => {
 };
 
 window.onclick = (e) => {
-  if(e.target == modal){
-    modal.style.display = "none"
+  if (e.target == modal) {
+    modal.style.display = "none";
+    e.preventDefault();
   }
-
-}
+};
