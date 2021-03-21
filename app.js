@@ -35,3 +35,7 @@ const searchByName = (people) => {
 
   return filteredPeople[0];
 };
+
+const searchByTrait = (people) => {
+  // 
+}
