@@ -22,7 +22,6 @@ const displayTableResults = (people) => {
   });
 };
 
-
 const searchByName = (people) => {
   let name = "Uma";
   let filteredPeople = people.filter((person) => {
@@ -37,5 +36,25 @@ const searchByName = (people) => {
 };
 
 const searchByTrait = (people) => {
-  // 
+  //
+};
+
+// Modal Functions
+let modalBtn = document.querySelector("#modal-btn");
+let modal = document.querySelector(".modal");
+let closeBtn = document.querySelector(".close-btn");
+
+modalBtn.onclick = () => {
+  modal.style.display = "block";
+};
+
+closeBtn.onclick = () => {
+  modal.style.display = "none";
+};
+
+window.onclick = (e) => {
+  if(e.target == modal){
+    modal.style.display = "none"
+  }
+
 }
