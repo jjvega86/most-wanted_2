@@ -54,32 +54,28 @@ const searchByName = (people) => {
 // Step 2: Filter people by each trait one by one. For Male, brown, programmer, sort by Male, then brown, then programmer
 // Step 3: Render filtered people to the table after clearing previous data
 
-const searchByTrait = (people, traitsArray = []) => {
-  let filteredPeople = [];
-  if (traitsArray.length == 0) {
-    traitsArray = assignTraits();
-  }
+const searchByTrait = (people) => {
+  let filteredPeople = people;
+  let traitsArray = assignTraits();
 
-  let [key, value] = traitsArray[0];
-  if (value != "") {
-    filteredPeople = people.filter((person) => {
-      if (person[key].toLowerCase() == value.toLowerCase()) {
-        return true;
-      }
-    });
-  } else {
-    filteredPeople = [...people];
-  }
-  let traitsArrayNew = traitsArray.filter(
-    (newTrait) => newTrait != traitsArray[0]
-  );
-  if (traitsArrayNew.length > 0) {
-    searchByTrait(filteredPeople, traitsArrayNew);
-  }
+  do {
+    let [key, value] = traitsArray[0];
+    if (value != "") {
+      let currentPeople = filteredPeople.filter((person) => {
+        if (person[key].toLowerCase() == value.toLowerCase()) {
+          return true;
+        }
+      });
+      filteredPeople = currentPeople;
+    }
+    let traitsArrayNew = traitsArray.filter(
+      (newTrait) => newTrait != traitsArray[0]
+    );
+    traitsArray = traitsArrayNew;
+  } while (traitsArray.length > 0);
 
-  //modal.style.display = "none";
+  modal.style.display = "none";
   displayTableResults(filteredPeople);
-  
 };
 
 const assignTraits = () => {
