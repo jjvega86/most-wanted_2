@@ -5,6 +5,9 @@
 const displayTableResults = (people) => {
   let table = document.getElementById("tableBody");
 
+  if (table.innerHTML != ""){
+    clearTableResults();
+  }
   people.forEach((element) => {
     table.innerHTML += `<tr>
       <td>${element.firstName}</td>
@@ -46,6 +49,19 @@ const searchByName = (people) => {
   displayTableResults(filteredPeople);
   modal.style.display = "none";
 };
+
+const searchByTrait = (people) => {
+  let gender = document.querySelector("#gender").value;
+  let eyeColor = document.querySelector("#eyecolor").value;
+  let height = document.querySelector("#height").value;
+  let weight = document.querySelector("#weight").value;
+  let occupation = document.querySelector("#occupation").value;
+  let traits = [gender, eyeColor, height, weight, occupation];
+
+  
+
+
+}
 
 // Modal Functions
 
