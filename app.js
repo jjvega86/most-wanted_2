@@ -5,7 +5,7 @@
 const displayTableResults = (people) => {
   let table = document.getElementById("tableBody");
 
-  if (table.innerHTML != ""){
+  if (table.innerHTML != "") {
     clearTableResults();
   }
   people.forEach((element) => {
@@ -50,18 +50,53 @@ const searchByName = (people) => {
   modal.style.display = "none";
 };
 
-const searchByTrait = (people) => {
+// Step 1: Get all traits that need to be filtered based on user input (trait != "")
+// Step 2: Filter people by each trait one by one. For Male, brown, programmer, sort by Male, then brown, then programmer
+// Step 3: Render filtered people to the table after clearing previous data
+
+const searchByTrait = (people, traitsArray = []) => {
+  let filteredPeople = [];
+  if (traitsArray.length == 0) {
+    traitsArray = assignTraits();
+  }
+
+  traitsArray.forEach((trait) => {
+    let [key, value] = trait;
+    if (value != "") {
+      people.forEach((person) => {
+        if (person[key].toLowerCase() == value.toLowerCase()) {
+          filteredPeople.push(person);
+        }
+      });
+    }
+    let traitsArrayNew = traitsArray.filter((newTrait) => newTrait != trait);
+    if (traitsArrayNew.length != 0) {
+      searchByTrait(filteredPeople, traitsArrayNew);
+    }
+  });
+
+  clearTableResults();
+  displayTableResults(filteredPeople);
+  modal.style.display = "none";
+};
+
+const assignTraits = () => {
   let gender = document.querySelector("#gender").value;
   let eyeColor = document.querySelector("#eyecolor").value;
   let height = document.querySelector("#height").value;
   let weight = document.querySelector("#weight").value;
   let occupation = document.querySelector("#occupation").value;
-  let traits = [gender, eyeColor, height, weight, occupation];
+  let traits = {
+    gender: gender,
+    eyeColor: eyeColor,
+    height: height,
+    weight: weight,
+    occupation: occupation,
+  };
+  let traitsArray = Object.entries(traits);
 
-  
-
-
-}
+  return traitsArray;
+};
 
 // Modal Functions
 
@@ -83,5 +118,3 @@ window.onclick = (e) => {
     modal.style.display = "none";
   }
 };
-
-
