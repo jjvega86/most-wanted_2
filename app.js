@@ -60,24 +60,26 @@ const searchByTrait = (people, traitsArray = []) => {
     traitsArray = assignTraits();
   }
 
-  traitsArray.forEach((trait) => {
-    let [key, value] = trait;
-    if (value != "") {
-      people.forEach((person) => {
-        if (person[key].toLowerCase() == value.toLowerCase()) {
-          filteredPeople.push(person);
-        }
-      });
-    }
-    let traitsArrayNew = traitsArray.filter((newTrait) => newTrait != trait);
-    if (traitsArrayNew.length != 0) {
-      searchByTrait(filteredPeople, traitsArrayNew);
-    }
-  });
+  let [key, value] = traitsArray[0];
+  if (value != "") {
+    filteredPeople = people.filter((person) => {
+      if (person[key].toLowerCase() == value.toLowerCase()) {
+        return true;
+      }
+    });
+  } else {
+    filteredPeople = [...people];
+  }
+  let traitsArrayNew = traitsArray.filter(
+    (newTrait) => newTrait != traitsArray[0]
+  );
+  if (traitsArrayNew.length > 0) {
+    searchByTrait(filteredPeople, traitsArrayNew);
+  }
 
-  clearTableResults();
+  //modal.style.display = "none";
   displayTableResults(filteredPeople);
-  modal.style.display = "none";
+  
 };
 
 const assignTraits = () => {
