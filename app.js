@@ -1,29 +1,45 @@
 "use strict";
+// Global Declarations
+let peopleData = []; //whenever all people are displayed or a search is called, set his variable
+// to be used in dynamically generated event handlers
+
+document.body.addEventListener('click', (e) => {
+  console.log(e.target.id)
+  if(e.target.id.includes('family')){
+    console.log("Family!")
+    getFamily(e.target.id, peopleData);
+  }
+})
 
 // Table Functions
 
 const displayTableResults = (people) => {
   let table = document.getElementById("tableBody");
+  peopleData = people;
 
   if (table.innerHTML != "") {
     clearTableResults();
   }
-  people.forEach((element) => {
+  people.forEach((person, index) => {
+    let familyString = "family" + index;
     table.innerHTML += `<tr>
-      <td>${element.firstName}</td>
-      <td>${element.lastName}</td>
-      <td>${element.gender}</td>
-      <td>${element.height}</td>
-      <td>${element.weight}</td>
-      <td>${element.eyeColor}</td>
-      <td>${element.occupation}</td>
-      <td><button>Display Family</button></td>
+      <td>${person.firstName}</td>
+      <td>${person.lastName}</td>
+      <td>${person.gender}</td>
+      <td>${person.height}</td>
+      <td>${person.weight}</td>
+      <td>${person.eyeColor}</td>
+      <td>${person.occupation}</td>
+      <td><button id=${familyString}>Display Family</button></td>
       <td><button>Display Descendants</button></td>
     </tr>
     
     `;
   });
+
 };
+
+
 
 const clearTableResults = () => {
   var tbody = document.querySelector("#tableBody");
@@ -49,10 +65,6 @@ const searchByName = (people) => {
   displayTableResults(filteredPeople);
   modal.style.display = "none";
 };
-
-// Step 1: Get all traits that need to be filtered based on user input (trait != "")
-// Step 2: Filter people by each trait one by one. For Male, brown, programmer, sort by Male, then brown, then programmer
-// Step 3: Render filtered people to the table after clearing previous data
 
 const searchByTrait = (people) => {
   let filteredPeople = people;
@@ -95,6 +107,10 @@ const assignTraits = () => {
 
   return traitsArray;
 };
+
+// Family + Descendants Functions
+
+const getFamily = (familyId, people) => {console.log("You're getting family!", people)};
 
 // Modal Functions
 
